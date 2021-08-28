@@ -1,4 +1,4 @@
-package com.example.animalsapp
+package com.example.dogsapp
 
 import org.junit.Test
 

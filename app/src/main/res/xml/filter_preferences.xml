@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foregroundGravity="top"
+    android:gravity="top">
+    <DropDownPreference
+        android:entries="@array/entries"
+        android:entryValues="@array/entry_values"
+        android:icon="@drawable/ic_round_sort_24"
+        android:key="sorting"
+        android:title="Sort by..."
+        app:useSimpleSummaryProvider="true" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:icon="@drawable/ic_room_preferences_24"
+        android:key="room"
+        android:summary="Use Room implementation"
+        android:title="Database" />
+</PreferenceScreen>

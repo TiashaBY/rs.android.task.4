@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Animals</string>
+    <string name="breed_label">Breed</string>
+    <string name="id_label">ID</string>
+    <string name="name_label">Name</string>
+    <string name="age_label">Age</string>
+    <string name="save_button_label">Save</string>
+    <string name="sorting_key">sorting</string>
+    <string name="room_key">room</string>
+    <string name="error_label">Not all the fields are filled out</string>
+    <string-array name="entry_values">
+        <item>opt0</item>
+        <item>breed</item>
+        <item>name</item>
+        <item>age</item>
+    </string-array>
+    <string-array name="entries">
+        <item>As is (no sorting)</item>
+        <item>Breed</item>
+        <item>Name</item>
+        <item>Age</item>
+    </string-array>
 </resources>

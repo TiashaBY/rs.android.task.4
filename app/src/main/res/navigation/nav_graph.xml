@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dogsListFragment">
+
+    <fragment
+        android:id="@+id/dogsListFragment"
+        android:name="com.example.dogsapp.DogsListFragment"
+        android:label="DogsListFragment">
+        <argument
+            android:name="dogsList"
+            app:argType="com.example.dogsapp.models.Dog[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="dog"
+            app:argType="com.example.dogsapp.models.Dog"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_dogsListFragment_to_editEntryFragment"
+            app:destination="@id/editEntryFragment" />
+        <action
+            android:id="@+id/action_dogsListFragment_self"
+            app:destination="@id/dogsListFragment"
+            app:launchSingleTop="true">
+        <argument
+            android:name="dogsList"
+            app:argType="com.example.dogsapp.models.Dog[]"
+            app:nullable="true" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/filterPreferences"
+        android:name="com.example.dogsapp.FilterPreferences"
+        android:label="Settings" />
+    <fragment
+        android:id="@+id/editEntryFragment"
+        android:name="com.example.dogsapp.EditEntryFragment"
+        android:label="EditEntryFragment" >
+        <argument
+            android:name="dog"
+            app:argType="com.example.dogsapp.models.Dog"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_editEntryFragment_to_dogsListFragment"
+            app:destination="@id/dogsListFragment"
+            app:launchSingleTop="true">
+            <argument
+                android:name="dogsList"
+                app:argType="com.example.dogsapp.models.Dog[]"
+                app:nullable="true" />
+            <argument
+                android:name="dog"
+                app:argType="com.example.dogsapp.models.Dog"
+                app:nullable="true" />
+        </action>
+    </fragment>
+</navigation>
