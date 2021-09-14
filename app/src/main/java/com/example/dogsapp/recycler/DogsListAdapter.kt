@@ -18,6 +18,7 @@ import com.example.dogsapp.utils.ENTRY
 import com.example.dogsapp.utils.RELOAD_LIST
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class DogsListAdapter(private val dbRepository: DogsDatabaseHelper,
@@ -36,6 +37,7 @@ class DogsListAdapter(private val dbRepository: DogsDatabaseHelper,
                         submitList(mutableList)
                         notifyItemRemoved(position)
                     }
+                    cancel()
                 }
             }
 
