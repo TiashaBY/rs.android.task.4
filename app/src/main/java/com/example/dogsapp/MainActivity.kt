@@ -1,24 +1,22 @@
 package com.example.dogsapp
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.dogsapp.databinding.ActivityMainBinding
 import com.example.dogsapp.models.Dog
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.preference.PreferenceManager
+import com.example.dogsapp.database.DogsDatabaseHelper
 import com.example.dogsapp.database.DogsRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.dogsapp.utils.generateDummyData
+import kotlinx.coroutines.*
+import kotlinx.coroutines.NonCancellable.cancel
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,8 +51,9 @@ class MainActivity : AppCompatActivity() {
         }
         R.id.dummyData -> {
             CoroutineScope(Dispatchers.Main).launch {
-                generateDummyData()
+                generateDummyData(this@MainActivity)
                 navController.navigate(R.id.action_dogsListFragment_self)
+                this.cancel()
             }
             true
         }
@@ -66,18 +65,5 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
                 || super.onSupportNavigateUp()
-    }
-
-
-    private suspend fun generateDummyData(): Boolean {
-        val repo = DogsRepository.getRepo(this, true)
-        for (i in 1..100) {
-            val dog = Dog().apply {
-                name = "New dog $i"
-            breed = "$i breed"
-            age = (1..50).random()}
-            repo.insert(dog)
-        }
-        return true
     }
 }

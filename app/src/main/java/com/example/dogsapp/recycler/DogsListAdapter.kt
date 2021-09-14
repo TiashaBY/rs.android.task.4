@@ -1,8 +1,6 @@
 package com.example.dogsapp.recycler
 
 import android.content.Context
-import android.provider.Settings.System.getString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +13,14 @@ import com.example.dogsapp.models.Dog
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.dogsapp.R
-import com.example.dogsapp.database.DogsRepository
+import com.example.dogsapp.database.DogsDatabaseHelper
 import com.example.dogsapp.utils.ENTRY
 import com.example.dogsapp.utils.RELOAD_LIST
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DogsListAdapter(private val dbRepository: DogsRepository,
+class DogsListAdapter(private val dbRepository: DogsDatabaseHelper,
                       private val context: Context,
                       private val onListChangeListener: OnListChangeListener
                       ) : ListAdapter<Dog, DogViewHolder>(itemComparator) {

@@ -4,22 +4,20 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.room.Room
 import com.example.dogsapp.database.*
-import com.example.dogsapp.database.room.DogsDatabase
 
-class DBHelper(
+class SQLiteDbHelper(
     context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         @Volatile
-        private var INSTANCE: DBHelper? = null
+        private var INSTANCE: SQLiteDbHelper? = null
 
-        fun getDatabase(context: Context): DBHelper? {
+        fun getDatabase(context: Context): SQLiteDbHelper? {
             if (INSTANCE == null) {
-                synchronized(DBHelper::class.java) {
+                synchronized(SQLiteDbHelper::class.java) {
                     if (INSTANCE == null) {
-                        INSTANCE = DBHelper(context)
+                        INSTANCE = SQLiteDbHelper(context)
                     }
                 }
             }

@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.dogsapp.database.room.DogsDatabase
 import com.example.dogsapp.models.Dog
 
-class RoomDogsRepository(val context: Context) : DogsRepository {
+class RoomDogsDatabaseHelper(val context: Context) : DogsDatabaseHelper {
 
     var db : DogsDatabase? = DogsDatabase.getDatabase(context)
 

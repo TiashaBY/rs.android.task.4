@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dogsapp.database.DogsDatabaseHelper
 import com.example.dogsapp.database.DogsRepository
 import com.example.dogsapp.databinding.DogsListFragmentBinding
 import com.example.dogsapp.models.Dog
@@ -28,12 +29,13 @@ import kotlinx.coroutines.launch
 
 class DogsListFragment : Fragment() {
 
+    var repo: DogsDatabaseHelper? = null
+
     private var _binding: DogsListFragmentBinding? = null
     private val binding get() = checkNotNull(_binding)
 
     private var job: Job = Job()
     private val scope = CoroutineScope(job + Dispatchers.Main)
-    private var repo: DogsRepository? = null
 
     private var _dogslistadapter: DogsListAdapter? = null
     private val dogslistadapter get() = checkNotNull(_dogslistadapter)
@@ -53,26 +55,12 @@ class DogsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.progressBar.visibility = VISIBLE
         _sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.context)
-        initRepository(view.context)
+        repo = DogsRepository.getRepo(view.context, sharedPreferences)
 
-        if (_dogslistadapter == null) {
-            repo?.let {
-                _dogslistadapter = DogsListAdapter(it, view.context, object :
-                    OnListChangeListener {
-                    override fun onListChange() {
-                        binding.listRecyclerView.scrollToPosition(0)
-                    }
-                }
-                )
-            }
-        }
+        initAdapter(view)
+        displayDogsData()
 
-        binding.listRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = dogslistadapter
-            adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
-        }
-
+        //listeners
         findNavController().addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.dogsListFragment) {
                 binding.floatingButtonAdd.visibility = VISIBLE
@@ -96,7 +84,36 @@ class DogsListFragment : Fragment() {
                 }
             }
         })
+    }
 
+    override fun onDetach() {
+        super.onDetach()
+        job.cancel()
+    }
+
+    private suspend fun loadListFromDb(): List<Dog> {
+        val name: String = sharedPreferences.getString(getString(R.string.sorting_key), "") ?: ""
+        val dogsList = if (name == "" || name == "opt0") {
+            repo?.queryAll()
+        } else {
+            repo?.queryAllWithSorting(name)
+        }
+        return dogsList ?: emptyList()
+    }
+
+    private suspend fun updateDog(dog: Dog): Int {
+        return repo?.update(dog) ?: 0
+    }
+
+    private suspend fun addDog(dog: Dog): Long {
+        val res = repo?.insert(dog) ?: -1
+        if (res > -1) {
+            dog.id = res
+        }
+        return res
+    }
+
+    private fun displayDogsData() {
         val updatedItem =
             findNavController().currentBackStackEntry?.savedStateHandle?.get<Dog>(ENTRY)
         if (updatedItem != null) {
@@ -130,35 +147,22 @@ class DogsListFragment : Fragment() {
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        job.cancel()
-    }
-
-    private suspend fun loadListFromDb(): List<Dog> {
-        val name: String = sharedPreferences.getString(getString(R.string.sorting_key), "") ?: ""
-        val dogsList = if (name == "" || name == "opt0") {
-            repo?.queryAll()
-        } else {
-            repo?.queryAllWithSorting(name)
+    private fun initAdapter(view: View) {
+        if (_dogslistadapter == null) {
+            repo?.let {
+                _dogslistadapter = DogsListAdapter(it, view.context, object :
+                    OnListChangeListener {
+                    override fun onListChange() {
+                        binding.listRecyclerView.scrollToPosition(0)
+                    }
+                }
+                )
+            }
         }
-        return dogsList ?: emptyList()
-    }
-
-    private fun initRepository(context: Context) {
-        val useRoom: Boolean = sharedPreferences.getBoolean(getString(R.string.room_key), true)
-        repo = DogsRepository.getRepo(context, useRoom)
-    }
-
-    private suspend fun updateDog(dog: Dog): Int {
-        return repo?.update(dog) ?: 0
-    }
-
-    private suspend fun addDog(dog: Dog): Long {
-        val res = repo?.insert(dog) ?: -1
-        if (res > -1) {
-            dog.id = res
+        binding.listRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = dogslistadapter
+            adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
         }
-        return res
     }
 }

@@ -3,12 +3,12 @@ package com.example.dogsapp.database
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import com.example.dogsapp.database.sqlite.DBHelper
+import com.example.dogsapp.database.sqlite.SQLiteDbHelper
 import com.example.dogsapp.models.Dog
 
-class SQLiteDogsRepository(val context: Context) : DogsRepository {
+class SQLiteDogsDatabaseHelper(val context: Context) : DogsDatabaseHelper {
 
-    private var _db = DBHelper.getDatabase(context)
+    private var _db = SQLiteDbHelper.getDatabase(context)
     private val db get() = checkNotNull(_db)
 
     override suspend fun queryAll(): List<Dog> {

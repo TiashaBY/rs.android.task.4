@@ -10,14 +10,6 @@ import com.example.dogsapp.database.DATABASE_NAME
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-
-/**
- * @Database(entities = arrayOf(User::class), version = 1)
-abstract class AppDatabase : RoomDatabase() {
-abstract fun userDao(): UserDao
-}
- */
-
 @Database(entities = [Dog::class], version = 1)
 abstract class DogsDatabase : RoomDatabase() {
     abstract fun getDogDao() : DogDao
