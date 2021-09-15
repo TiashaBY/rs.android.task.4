@@ -11,27 +11,29 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp">
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="@drawable/gradient_light">
 
         <TextView
             android:id="@+id/dog_data"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            tools:text="TextView"
+            android:layout_marginStart="10dp"
             app:layout_constraintBottom_toTopOf="@+id/dog_data_secondary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TextView" />
 
         <TextView
             android:id="@+id/dog_data_secondary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            tools:text="TextView"
+            android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dog_data" />
+            app:layout_constraintTop_toBottomOf="@+id/dog_data"
+            tools:text="TextView" />
 
         <ImageButton
             android:id="@+id/edit_button"
@@ -44,7 +46,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@android:color/holo_orange_light" />
 
         <ImageButton
             android:id="@+id/deleteButton"
@@ -55,6 +58,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="fitStart"
             android:src="@drawable/ic_baseline_delete_forever_24"
+            app:tint="@android:color/holo_orange_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edit_button"

@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     //MENU STUFF
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         navController.addOnDestinationChangedListener { _, destination, _ ->

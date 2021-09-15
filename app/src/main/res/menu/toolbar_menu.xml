@@ -4,7 +4,8 @@
     <item
         android:id="@+id/filterPreferences"
         android:title="Settings"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:menuCategory="secondary"/>
     <item
         android:id="@+id/dummyData"
         android:title="Generate data"

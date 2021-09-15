@@ -24,7 +24,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="200dp"
-        android:background="@drawable/edit_text_custom"
+        android:background="@drawable/edit_text_disabled"
         android:editable="false"
         android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
