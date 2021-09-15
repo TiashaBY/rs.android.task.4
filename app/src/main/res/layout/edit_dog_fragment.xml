@@ -117,8 +117,10 @@
         android:text="@string/save_button_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:layout_constraintVertical_bias="0.2" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -134,7 +136,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintGuide_percent="0.3"
+        app:layout_constraintGuide_percent="0.1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -143,7 +145,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintGuide_percent="0.45"
+        app:layout_constraintGuide_percent="0.2"
         app:layout_constraintTop_toBottomOf="@+id/guideline5" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -152,7 +154,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintGuide_percent="0.6"
+        app:layout_constraintGuide_percent="0.3"
         app:layout_constraintTop_toBottomOf="@+id/guideline6" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -161,7 +163,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.75"
+        app:layout_constraintGuide_percent="0.4"
         app:layout_constraintTop_toBottomOf="@+id/guideline7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,18 @@
-package com.example.dogsapp.database
+package com.example.dogsapp.database.dao
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import com.example.dogsapp.database.*
 import com.example.dogsapp.database.sqlite.SQLiteDbHelper
 import com.example.dogsapp.models.Dog
 
-class SQLiteDogsRepository(val context: Context) : DogsRepository {
+class SQLiteDogsDao(val db: SQLiteDbHelper) : DogDao {
 
-    private var _db = SQLiteDbHelper.getDatabase(context)
-    private val db get() = checkNotNull(_db)
+/*    private var _db = SQLiteDbHelper.getDatabase(context)
+    private val db get() = checkNotNull(_db)*/
 
-    override suspend fun queryAll(): List<Dog> {
+    override suspend fun getAll(): List<Dog> {
         val dogsList = mutableListOf<Dog>()
         db.getCursor().use { cursor ->
             getDogList(cursor, dogsList)
@@ -19,7 +20,7 @@ class SQLiteDogsRepository(val context: Context) : DogsRepository {
         return dogsList
     }
 
-    override suspend fun queryAllWithSorting(sortBy: String): List<Dog> {
+    override suspend fun getAllWithSorting(sortBy: String): List<Dog> {
         val dogsList = mutableListOf<Dog>()
         db.getCursor(sortBy).use { cursor ->
             getDogList(cursor, dogsList)

@@ -54,7 +54,7 @@ class DogsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.progressBar.visibility = VISIBLE
         _sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.context)
-        repo = DogsRepositoryHelper.getRepo(view.context, sharedPreferences)
+        repo = DogsRepositoryHelper.getDao(view.context, sharedPreferences)?.let { DogsRepository(it) }
 
         initAdapter(view)
         displayDogsData()

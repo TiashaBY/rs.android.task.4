@@ -48,7 +48,7 @@ class EditEntryFragment : Fragment() {
                         breed = binding.breed.text.toString()
                     }
                 findNavController().previousBackStackEntry?.savedStateHandle?.set(ENTRY, dog)
-                findNavController().popBackStack()
+                findNavController().navigateUp()
             } else {
                 Toast.makeText(context, getString(R.string.error_label), Toast.LENGTH_SHORT)
                     .show()

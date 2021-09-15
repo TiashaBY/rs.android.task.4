@@ -2,13 +2,16 @@ package com.example.dogsapp.database
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.dogsapp.database.dao.DogDao
+import com.example.dogsapp.database.room.DogsDatabase
+import com.example.dogsapp.database.sqlite.SQLiteDbHelper
 
 object DogsRepositoryHelper {
-        fun getRepo(context: Context, sharedPreferences: SharedPreferences): DogsRepository {
+        fun getDao(context: Context, sharedPreferences: SharedPreferences): DogDao? {
             return if (sharedPreferences.getBoolean("room", true)) {
-                RoomDogsRepository(context)
+                DogsDatabase.getDatabase(context)?.getDogDao()
             } else {
-                SQLiteDogsRepository(context)
+                SQLiteDbHelper.getDatabase(context)?.getDao()
             }
         }
 }

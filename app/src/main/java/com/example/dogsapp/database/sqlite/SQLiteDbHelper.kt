@@ -5,6 +5,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.dogsapp.database.*
+import com.example.dogsapp.database.dao.DogDao
+import com.example.dogsapp.database.dao.SQLiteDogsDao
 
 class SQLiteDbHelper(
     context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -23,6 +25,10 @@ class SQLiteDbHelper(
             }
             return INSTANCE
         }
+    }
+
+    fun getDao() : SQLiteDogsDao? {
+        return INSTANCE?.let { SQLiteDogsDao(it) }
     }
 
     override fun onCreate(db: SQLiteDatabase?) {

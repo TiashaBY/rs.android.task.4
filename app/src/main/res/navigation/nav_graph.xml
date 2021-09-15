@@ -9,16 +9,6 @@
         android:id="@+id/dogsListFragment"
         android:name="com.example.dogsapp.DogsListFragment"
         android:label="All dogs">
-        <argument
-            android:name="dogsList"
-            android:defaultValue="@null"
-            app:argType="com.example.dogsapp.models.Dog[]"
-            app:nullable="true" />
-        <argument
-            android:name="dog"
-            android:defaultValue="@null"
-            app:argType="com.example.dogsapp.models.Dog"
-            app:nullable="true" />
         <action
             android:id="@+id/action_dogsListFragment_to_editEntryFragment"
             app:destination="@id/editEntryFragment" />
@@ -26,10 +16,6 @@
             android:id="@+id/action_dogsListFragment_self"
             app:destination="@id/dogsListFragment"
             app:launchSingleTop="true">
-            <argument
-                android:name="dogsList"
-                app:argType="com.example.dogsapp.models.Dog[]"
-                app:nullable="true" />
         </action>
     </fragment>
     <fragment
@@ -48,14 +34,6 @@
             android:id="@+id/action_editEntryFragment_to_dogsListFragment"
             app:destination="@id/dogsListFragment"
             app:launchSingleTop="true">
-            <argument
-                android:name="dogsList"
-                app:argType="com.example.dogsapp.models.Dog[]"
-                app:nullable="true" />
-            <argument
-                android:name="dog"
-                app:argType="com.example.dogsapp.models.Dog"
-                app:nullable="true" />
         </action>
     </fragment>
 </navigation>

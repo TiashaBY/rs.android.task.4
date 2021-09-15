@@ -1,6 +1,7 @@
-package com.example.dogsapp.models
+package com.example.dogsapp.database.dao
 
 import androidx.room.*
+import com.example.dogsapp.models.Dog
 
 @Dao
 interface DogDao {
