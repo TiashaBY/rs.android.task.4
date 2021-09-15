@@ -43,6 +43,7 @@ class SQLiteDogsDao(val db: SQLiteDbHelper) : DogDao {
                 listOfTopics.add(doggy)
             } while (cursor.moveToNext())
         }
+        cursor.close()
     }
 
     override suspend fun delete(dog: Dog) : Int {
