@@ -9,9 +9,6 @@ import com.example.dogsapp.models.Dog
 
 class SQLiteDogsDao(val db: SQLiteDbHelper) : DogDao {
 
-/*    private var _db = SQLiteDbHelper.getDatabase(context)
-    private val db get() = checkNotNull(_db)*/
-
     override suspend fun getAll(): List<Dog> {
         val dogsList = mutableListOf<Dog>()
         db.getCursor().use { cursor ->
