@@ -116,6 +116,8 @@ class DogsListFragment : Fragment() {
         val updatedItem =
             findNavController().currentBackStackEntry?.savedStateHandle?.get<Dog>(ENTRY)
         if (updatedItem != null) {
+            //clear in order to refresh the data
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(ENTRY, null)
             scope.launch {
                 var res: Long = -1L
                 if (updatedItem.id == null) {
