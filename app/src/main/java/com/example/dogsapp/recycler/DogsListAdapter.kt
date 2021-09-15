@@ -13,7 +13,7 @@ import com.example.dogsapp.models.Dog
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.dogsapp.R
-import com.example.dogsapp.database.DogsDatabaseHelper
+import com.example.dogsapp.database.DogsRepository
 import com.example.dogsapp.utils.ENTRY
 import com.example.dogsapp.utils.RELOAD_LIST
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class DogsListAdapter(private val dbRepository: DogsDatabaseHelper,
+class DogsListAdapter(private val dbRepository: DogsRepository,
                       private val context: Context,
                       private val onListChangeListener: OnListChangeListener
                       ) : ListAdapter<Dog, DogViewHolder>(itemComparator) {

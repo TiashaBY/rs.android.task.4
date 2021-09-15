@@ -6,7 +6,7 @@ import android.database.Cursor
 import com.example.dogsapp.database.sqlite.SQLiteDbHelper
 import com.example.dogsapp.models.Dog
 
-class SQLiteDogsDatabaseHelper(val context: Context) : DogsDatabaseHelper {
+class SQLiteDogsRepository(val context: Context) : DogsRepository {
 
     private var _db = SQLiteDbHelper.getDatabase(context)
     private val db get() = checkNotNull(_db)

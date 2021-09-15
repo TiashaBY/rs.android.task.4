@@ -1,6 +1,5 @@
 package com.example.dogsapp
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -15,8 +14,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dogsapp.database.DogsDatabaseHelper
 import com.example.dogsapp.database.DogsRepository
+import com.example.dogsapp.database.DogsRepositoryHelper
 import com.example.dogsapp.databinding.DogsListFragmentBinding
 import com.example.dogsapp.models.Dog
 import com.example.dogsapp.recycler.DogsListAdapter
@@ -29,7 +28,7 @@ import kotlinx.coroutines.launch
 
 class DogsListFragment : Fragment() {
 
-    var repo: DogsDatabaseHelper? = null
+    var repo: DogsRepository? = null
 
     private var _binding: DogsListFragmentBinding? = null
     private val binding get() = checkNotNull(_binding)
@@ -55,7 +54,7 @@ class DogsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.progressBar.visibility = VISIBLE
         _sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.context)
-        repo = DogsRepository.getRepo(view.context, sharedPreferences)
+        repo = DogsRepositoryHelper.getRepo(view.context, sharedPreferences)
 
         initAdapter(view)
         displayDogsData()
