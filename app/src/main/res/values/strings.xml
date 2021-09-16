@@ -8,6 +8,7 @@
     <string name="sorting_key">sorting</string>
     <string name="room_key">room</string>
     <string name="error_label">Not all the fields are filled out</string>
+    <string name="error_db">Error while database updated</string>
     <string-array name="entry_values">
         <item>opt0</item>
         <item>breed</item>

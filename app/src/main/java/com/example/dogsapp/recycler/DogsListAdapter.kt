@@ -1,12 +1,10 @@
 package com.example.dogsapp.recycler
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
-import androidx.preference.PreferenceManager
 import com.example.dogsapp.databinding.DogItemBinding
 import com.example.dogsapp.models.Dog
 
@@ -15,18 +13,16 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.dogsapp.R
 import com.example.dogsapp.database.DogsRepository
 import com.example.dogsapp.utils.ENTRY
-import com.example.dogsapp.utils.RELOAD_LIST
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class DogsListAdapter(private val dbRepository: DogsRepository,
-                      private val context: Context,
                       private val onListChangeListener: OnListChangeListener
                       ) : ListAdapter<Dog, DogViewHolder>(itemComparator) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogViewHolder {
-        val layoutInflater = LayoutInflater.from(context)
+        val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DogItemBinding.inflate(layoutInflater, parent, false)
         return DogViewHolder(binding, object : OnDogItemClickListener {
             override fun onDeleteClick(dog: Dog, position: Int) {
@@ -63,13 +59,7 @@ class DogsListAdapter(private val dbRepository: DogsRepository,
 
     override fun onCurrentListChanged(previousList: MutableList<Dog>, currentList: MutableList<Dog>) {
         super.onCurrentListChanged(previousList, currentList)
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(RELOAD_LIST, false)) {
-            onListChangeListener.onListChange()
-            with (PreferenceManager.getDefaultSharedPreferences(context).edit()) {
-                this?.putBoolean(RELOAD_LIST, false)
-                this?.apply()
-            }
-        }
+        onListChangeListener.onListChange()
     }
 
     private companion object {

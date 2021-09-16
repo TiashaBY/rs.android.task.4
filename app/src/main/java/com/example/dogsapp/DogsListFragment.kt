@@ -21,6 +21,7 @@ import com.example.dogsapp.models.Dog
 import com.example.dogsapp.recycler.DogsListAdapter
 import com.example.dogsapp.recycler.OnListChangeListener
 import com.example.dogsapp.utils.ENTRY
+import com.example.dogsapp.utils.RELOAD_LIST
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -124,14 +125,14 @@ class DogsListFragment : Fragment() {
                     Log.d("add", "Add item, result $res")
                     res = addDog(updatedItem)
                     if (res == -1L) {
-                        Toast.makeText(context, "Error while item inserted", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, getString(R.string.error_db), Toast.LENGTH_SHORT)
                             .show()
                     }
                 } else {
                     res = updateDog(updatedItem).toLong()
                     Log.d("update", "Update item, result " + res)
                     if (res == 0L) {
-                        Toast.makeText(context, "Error while item update", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, getString(R.string.error_db), Toast.LENGTH_SHORT)
                             .show()
                     }
                 }
@@ -151,10 +152,17 @@ class DogsListFragment : Fragment() {
     private fun initAdapter(view: View) {
         if (_dogslistadapter == null) {
             repo?.let {
-                _dogslistadapter = DogsListAdapter(it, view.context, object :
+                _dogslistadapter = DogsListAdapter(it, object:
                     OnListChangeListener {
                     override fun onListChange() {
-                        binding.listRecyclerView.scrollToPosition(0)
+                        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                                RELOAD_LIST, false)) {
+                            binding.listRecyclerView.scrollToPosition(0)
+                            with (PreferenceManager.getDefaultSharedPreferences(context).edit()) {
+                                this?.putBoolean(RELOAD_LIST, false)
+                                this?.apply()
+                            }
+                        }
                     }
                 }
                 )
